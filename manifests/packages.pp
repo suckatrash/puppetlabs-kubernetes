@@ -5,7 +5,6 @@ class kubernetes::packages (
   String $kubernetes_package_version           = $kubernetes::kubernetes_package_version,
   String $container_runtime                    = $kubernetes::container_runtime,
   Boolean $manage_docker                       = $kubernetes::manage_docker,
-  Boolean $manage_etcd                         = $kubernetes::manage_etcd,
   Optional[String] $docker_version             = $kubernetes::docker_version,
   Optional[String] $docker_package_name        = $kubernetes::docker_package_name,
   Boolean $controller                          = $kubernetes::controller,
@@ -93,7 +92,7 @@ class kubernetes::packages (
     }
   }
 
-  if $controller and $manage_etcd {
+  if $controller {
     archive { $etcd_archive:
       path            => "/${etcd_archive}",
       source          => $etcd_source,

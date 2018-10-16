@@ -7,17 +7,17 @@ module Puppet::Parser::Functions
   newfunction(:kubeadm_join_flags, :type => :rvalue) do |args|
     opts = args[0] || {}
     flags = []
-    flags << "'#{opts['controller_address']}'" if opts['controller_address'].to_s != 'undef'
-    flags << "--config '#{opts['config']}'" if opts['config'].to_s != 'undef'
-    flags << "--cri-socket '#{opts['cri_socket']}'" if opts['cri_socket'].to_s != 'undef'
-    flags << "--discovery-file '#{opts['discovery_file']}'" if opts['discovery_file'].to_s != 'undef'
-    flags << "--discovery-token '#{opts['discovery_token']}'" if opts['discovery_token'].to_s != 'undef'
-    flags << "--discovery-token-ca-cert-hash 'sha256:#{opts['ca_cert_hash']}'" if opts['ca_cert_hash'].to_s != 'undef'
+    flags << "'#{opts['controller_address']}'" unless !opts['controller_address']
+    flags << "--config '#{opts['config']}'" unless !opts['config']
+    flags << "--cri-socket '#{opts['cri_socket']}'" unless !opts['cri_socket']
+    flags << "--discovery-file '#{opts['discovery_file']}'" unless !opts['discovery_file']
+    flags << "--discovery-token '#{opts['discovery_token']}'" unless !opts['discovery_token']
+    flags << "--discovery-token-ca-cert-hash 'sha256:#{opts['ca_cert_hash']}'" unless !opts['ca_cert_hash']
     flags << "--discovery-token-unsafe-skip-ca-verification '#{opts['skip_ca_verification']}'" if opts['skip_ca_verification']
     flags << "--feature-gates '#{opts['feature_gates'].join(',')}'" unless !opts['feature_gates']
-    flags << "--ignore-preflight-errors '#{opts['ignore_preflight_errors'].join(',')}'" if opts['ignore_preflight_errors'].to_s != 'undef'
-    flags << "--node-name '#{opts['node_name']}'" if opts['node_name'].to_s != 'undef'
-    flags << "--token '#{opts['token']}'" if opts['token'].to_s != 'undef'
+    flags << "--ignore-preflight-errors '#{opts['ignore_preflight_errors'].join(',')}'" unless !opts['ignore_preflight_errors']
+    flags << "--node-name '#{opts['node_name']}'" unless !opts['node_name']
+    flags << "--token '#{opts['token']}'" unless !opts['token']
 
     flags.flatten.join(' ')
   end

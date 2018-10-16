@@ -28,22 +28,22 @@ class kubernetes::packages (
     }
   }
 
-  if $::osfamily == 'RedHat' {
-    exec { 'set up bridge-nf-call-iptables':
-      path    => ['/usr/sbin/', '/usr/bin', '/bin', '/sbin'],
-      command => 'modprobe br_netfilter',
-      creates => '/proc/sys/net/bridge/bridge-nf-call-iptables',
-      before  => File_line['set 1 /proc/sys/net/bridge/bridge-nf-call-iptables'],
-    }
+ # if $::osfamily == 'RedHat' {
+ #   exec { 'set up bridge-nf-call-iptables':
+ #     path    => ['/usr/sbin/', '/usr/bin', '/bin', '/sbin'],
+ #     command => 'modprobe br_netfilter',
+ #     creates => '/proc/sys/net/bridge/bridge-nf-call-iptables',
+ #     before  => File_line['set 1 /proc/sys/net/bridge/bridge-nf-call-iptables'],
+ #   }
 
-    file_line { 'set 1 /proc/sys/net/bridge/bridge-nf-call-iptables':
-      path    => '/proc/sys/net/bridge/bridge-nf-call-iptables',
-      replace => true,
-      line    => '1',
-      match   => '0',
-      require => Exec['set up bridge-nf-call-iptables'],
-    }
-  }
+ #   file_line { 'set 1 /proc/sys/net/bridge/bridge-nf-call-iptables':
+ #     path    => '/proc/sys/net/bridge/bridge-nf-call-iptables',
+ #     replace => true,
+ #     line    => '1',
+ #     match   => '0',
+ #     require => Exec['set up bridge-nf-call-iptables'],
+ #   }
+ # }
 
   if $container_runtime == 'docker' and $manage_docker == true {
     case $::osfamily {

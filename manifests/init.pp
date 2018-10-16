@@ -370,15 +370,18 @@ class kubernetes (
   if $worker {
     include kubernetes::repos
     include kubernetes::packages
+    include kubernetes::config
     include kubernetes::service
     include kubernetes::cluster_roles
     contain kubernetes::repos
     contain kubernetes::packages
+    contain kubernetes::config
     contain kubernetes::service
     contain kubernetes::cluster_roles
 
     Class['kubernetes::repos']
       -> Class['kubernetes::packages']
+      -> Class['kubernetes::config']
       -> Class['kubernetes::service']
       -> Class['kubernetes::cluster_roles']
   }

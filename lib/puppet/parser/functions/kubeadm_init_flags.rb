@@ -9,7 +9,7 @@ module Puppet::Parser::Functions
     flags = []
     flags << "--apiserver-advertise-address '#{opts['apiserver_advertise_address']}'" if opts['apiserver_advertise_address'].to_s != 'undef'
     flags << "--apiserver-bind-port '#{opts['apiserver_bind_port']}'" if opts['apiserver_bind_port'].to_s != 'undef'
-    flags << "--apiserver-cert-extra-sans '#{opts['apiserver_cert_extra_sans'].join(',')}'" if opts['apiserver_cert_extra_sans'].to_s != 'undef'
+    flags << "--apiserver-cert-extra-sans '#{opts['apiserver_cert_extra_sans'].join(',')}'" unless opts['apiserver_cert_extra_sans'].nil
     flags << "--cert-dir '#{opts['cert_dir']}'" if opts['cert_dir'].to_s != 'undef'
     flags << "--config '#{opts['config']}'" if opts['config'].to_s != 'undef'
     flags << "--cri-socket '#{opts['cri_socket']}'" if opts['cri_socket'].to_s != 'undef'

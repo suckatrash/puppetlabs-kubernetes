@@ -30,7 +30,7 @@ class kubernetes::packages (
 
   if $::osfamily == 'RedHat' {
     exec { 'set up bridge-nf-call-iptables':
-      path    => ['/usr/sbin/', '/usr/bin', '/bin'],
+      path    => ['/usr/sbin/', '/usr/bin', '/bin', '/sbin'],
       command => 'modprobe br_netfilter',
       creates => '/proc/sys/net/bridge/bridge-nf-call-iptables',
       before  => File_line['set 1 /proc/sys/net/bridge/bridge-nf-call-iptables'],

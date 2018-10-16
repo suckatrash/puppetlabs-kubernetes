@@ -40,7 +40,6 @@ class kubernetes::packages (
       replace => true,
       line    => '1',
       match   => '0',
-      require => Exec['set up bridge-nf-call-iptables'],
     }
   }
 
